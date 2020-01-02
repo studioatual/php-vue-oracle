@@ -1,0 +1,66 @@
+$loaderSize: 100px;
+$loaderItemSize: 32%;
+$loaderItemRadius: 50%;
+$loaderColor1: #fa5667;
+$loaderColor2: #7a45e5;
+$loaderColor3: #1b91f7;
+$loaderColor4: #fac24c;
+
+#loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 99;
+
+  .load {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: $loaderSize;
+    height: $loaderSize;
+    transform: translate(-50%, -50%);
+
+    .item {
+      position: absolute;
+      width: $loaderItemSize;
+      height: $loaderItemSize;
+      border-radius: $loaderItemRadius;
+      animation: spin 2s ease infinite;
+
+      &:first-child {
+        background: $loaderColor1;
+        animation-delay: -1.5s;
+      }
+      &:nth-child(2) {
+        background: $loaderColor2;
+        animation-delay: -1s;
+      }
+      &:nth-child(3) {
+        background: $loaderColor3;
+        animation-delay: -0.5s;
+      }
+      &:last-child {
+        background: $loaderColor4;
+      }
+    }
+  }
+
+  @keyframes spin {
+    0%,
+    100% {
+      transform: translate(0);
+    }
+    25% {
+      transform: translate(160%);
+    }
+    50% {
+      transform: translate(160%, 160%);
+    }
+    75% {
+      transform: translate(0, 160%);
+    }
+  }
+}

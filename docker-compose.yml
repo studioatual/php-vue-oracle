@@ -1,0 +1,33 @@
+version: '3.4'
+services:
+  php:
+    build: .docker
+    image: apache-oci8
+    container_name: apache-oci8
+    ports:
+      - 80:80
+    volumes:
+      - php-data:/var/www/html
+    restart: always
+    networks:
+      - mynetwork
+
+  db:
+    image: oracleinanutshell/oracle-xe-11g
+    container_name: oracledb
+    ports:
+      - 1521:1521
+    restart: always
+    networks:
+      - mynetwork
+
+volumes:
+  php-data:
+    driver: lebokus/bindfs:latest
+    driver_opts:
+      sourcePath: '${PWD}'
+      map: '${UID}/0:@${UID}/@0'
+
+networks:
+  mynetwork:
+    driver: bridge

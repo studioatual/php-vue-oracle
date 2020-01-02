@@ -1,0 +1,10 @@
+vendor
+node_modules
+storage/cache/*
+storage/logs/*
+
+.env
+
+composer.lock
+package-lock.json
+yarn.lock
