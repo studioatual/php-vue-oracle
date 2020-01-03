@@ -14,6 +14,7 @@ $app->group('/api', function (RouteCollectorProxy $group) use ($app) {
 
     $group->post('/auth', 'Api.AuthController:getLogin')->setName('api.auth.login');
 
+    $group->post('/recover/password', 'Api.AuthController:recoverPassword')->setName('recover.password');
 
     $group->get('/stock', 'Api.StockController:index')
         ->setName('api.stock')

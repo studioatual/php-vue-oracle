@@ -1,12 +1,12 @@
-const SET_COUNTER = state => {
-  state.counter = 1;
+const SET_LOADER = state => {
+  state.show = 1;
 };
 
-const REM_COUNTER = state => {
-  state.counter = 0;
+const REM_LOADER = state => {
+  state.show = 0;
 };
 
 export default {
-  SET_COUNTER,
-  REM_COUNTER,
+  SET_LOADER,
+  REM_LOADER,
 };

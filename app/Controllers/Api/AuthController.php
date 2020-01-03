@@ -28,7 +28,9 @@ class AuthController extends Controller
 
     public function getLogin(Request $request, Response $response)
     {
-        $params = $request->getParsedBody();
+        //$params = $request->getParsedBody();
+        $params = file_get_contents("php://input");
+        $params = json_decode($params, true);
 
         $validation = $this->validateParams($params);
 
@@ -67,5 +69,42 @@ class AuthController extends Controller
         ];
 
         return $this->validator->validate($params, $rules);
+    }
+
+    public function recoverPassword(Request $request, Response $response)
+    {
+        //$params = $request->getParsedBody();
+        $params = file_get_contents("php://input");
+        $params = json_decode($params, true);
+
+        if (!isset($params['email']) || !filter_var($params['email'], FILTER_VALIDATE_EMAIL)) {
+            $response->getBody()
+                ->write(json_encode(['message' => 'E-mail inválido!']));
+
+            return $response->withStatus(400)
+                ->withHeader('Content-Type', 'application/json');
+        }
+
+        $user = $this->auth->attemptAuthentication($params);
+
+        if (!$user) {
+            $response->getBody()
+                ->write(json_encode(['message' => 'E-mail não encontrado!']));
+
+            return $response->withStatus(400)
+                ->withHeader('Content-Type', 'application/json');
+        }
+
+        $this->mailer->send('emails/test.html', [], function ($message) use ($user) {
+            $message->subject('Recuperação de Senha - Citroflavor');
+            $message->from(['test@test.com' => 'test']);
+            $message->to([$user->getEmail() => $user->getName()]);
+        });
+
+        $response->getBody()
+            ->write(json_encode(['result' => 'Ok']));
+
+        return $response->withStatus(200)
+            ->withHeader('Content-Type', 'application/json');
     }
 }

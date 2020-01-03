@@ -1,0 +1,118 @@
+.page {
+  position: relative;
+
+  .message {
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #9fa2b4;
+
+    @media (max-width: 420px) {
+      font-size: 12px;
+    }
+  }
+
+  .form {
+    display: block;
+
+    &-group {
+      margin-bottom: 20px;
+      text-align: left;
+
+      label {
+        display: block;
+        padding-left: 5px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #9fa2b4;
+      }
+
+      input {
+        width: 100%;
+        padding: 0 10px;
+        height: 40px;
+        font-size: 14px;
+        color: #06c;
+        line-height: 40px;
+        border-radius: 5px;
+        border: 1px solid #f0f1f7;
+
+        &::placeholder {
+          color: #bec0cb;
+        }
+      }
+
+      span {
+        display: none;
+      }
+
+      &-line {
+        &::after {
+          display: table;
+          content: '';
+          clear: both;
+        }
+
+        label {
+          float: left;
+        }
+      }
+
+      &-link {
+        float: right;
+        font-size: 10px;
+        color: #9fa2b4;
+
+        &:hover {
+          color: $blue;
+        }
+      }
+
+      &.error {
+        label {
+          color: $red;
+        }
+
+        input {
+          border: 1px solid $red;
+        }
+
+        span {
+          display: block;
+          margin: 5px;
+          font-size: 11px;
+          color: $red;
+        }
+      }
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      height: 45px;
+      line-height: 45px;
+      font-size: 14px;
+      color: #fff;
+      text-align: center;
+      text-decoration: none;
+      background: #ee8600;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+
+      &:hover {
+        background: $darkblue;
+      }
+
+      &.goback {
+        background: none;
+        color: #454545;
+        border: 1px solid #f0f1f7;
+
+        &:hover {
+          color: #06c;
+          background: #f0f1f7;
+        }
+      }
+    }
+  }
+}
