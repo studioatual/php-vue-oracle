@@ -1,6 +1,7 @@
 import Panel from '~/pages/Panel';
-//import Dashboard from '~/pages/Panel/Dashboard';
-//import Stock from '~/pages/Panel/Stock';
+import Dashboard from '~/pages/Panel/Pages/Dashboard';
+import Stock from '~/pages/Panel/Pages/Stock';
+
 import { ifAuthenticated } from '~/services/middleware';
 
 export default {
@@ -11,7 +12,6 @@ export default {
   },
   beforeEnter: ifAuthenticated,
   component: Panel,
-  /*
   redirect: '/panel/dashboard',
   children: [
     {
@@ -31,5 +31,4 @@ export default {
       component: Stock,
     },
   ],
-  */
 };

@@ -1,0 +1,85 @@
+.table {
+  width: 100%;
+  border-spacing: 0;
+  background-color: none;
+
+  thead th {
+    padding: 10px 7px;
+    vertical-align: bottom;
+    font-size: 15px;
+    border-bottom: 2px solid $borderColor;
+    text-align: left;
+
+    &.align-right {
+      text-align: right;
+    }
+
+    &.align-center {
+      text-align: center;
+    }
+
+    span {
+      display: inline-block;
+      cursor: pointer;
+
+      i {
+        display: none;
+        font-size: 13px;
+      }
+    }
+
+    &.active {
+      color: $blue;
+
+      span {
+        i {
+          display: inline-block;
+        }
+      }
+    }
+
+    @media (max-width: 700px) {
+      font-size: 12px;
+      padding: 7px 3px;
+
+      span i {
+        font-size: 10px;
+      }
+    }
+  }
+
+  tbody td {
+    padding: 6px 7px;
+    line-height: 20px;
+    vertical-align: middle;
+    border-bottom: 1px solid #eee;
+
+    &.align-right {
+      text-align: right;
+    }
+
+    &.align-center {
+      text-align: center;
+    }
+
+    @media (max-width: 700px) {
+      font-size: 11px;
+    }
+  }
+
+  &.table-striped {
+    tbody tr:nth-of-type(#{odd}) {
+      background-color: rgba(0, 0, 0, 0.01);
+    }
+  }
+
+  &.table-hover {
+    tbody tr {
+      &:hover {
+        background-color: rgba(28, 124, 213, 0.05);
+      }
+    }
+  }
+
+  @import './stock.scss';
+}

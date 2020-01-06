@@ -9,7 +9,6 @@ import { logout } from '~/services/middleware';
 Vue.use(Router);
 
 export default new Router({
-  mode: 'history',
   routes: [
     Auth,
     Panel,
@@ -23,4 +22,5 @@ export default new Router({
       redirect: '/auth',
     },
   ],
+  mode: 'history',
 });

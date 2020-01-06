@@ -1,0 +1,178 @@
+.search {
+  width: 100%;
+  text-align: center;
+
+  &::after {
+    display: table;
+    content: '';
+    clear: both;
+  }
+
+  .resultpage {
+    float: right;
+    height: 40px;
+
+    &-text {
+      display: inline-block;
+      padding-right: 5px;
+      font-size: 14px;
+      font-weight: bold;
+      line-height: 40px;
+      vertical-align: top;
+    }
+
+    &-select {
+      display: inline-block;
+      height: 40px;
+      border-radius: 5px;
+      border: 1px solid $borderColor;
+      vertical-align: top;
+
+      select {
+        margin: 10px 8px;
+        line-height: 24px;
+        font-size: 14px;
+        color: $blue;
+        background: none;
+        border: none;
+        outline: none;
+        cursor: pointer;
+      }
+    }
+
+    @media (max-width: 900px) {
+      height: 30px;
+
+      &-text {
+        font-size: 12px;
+        line-height: 30px;
+      }
+
+      &-select {
+        height: 30px;
+
+        select {
+          margin: 5px 3px;
+        }
+      }
+    }
+
+    @media (max-width: 530px) {
+      display: inline-block;
+      float: none;
+      margin: 10px auto 0 auto;
+    }
+  }
+
+  .form {
+    float: left;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid $borderColor;
+
+    &-input {
+      float: left;
+      width: 250px;
+      height: 38px;
+      border-right: 1px solid $borderColor;
+
+      input {
+        width: 100%;
+        padding: 0 15px;
+        font-size: 14px;
+        color: $blue;
+        background: none;
+        line-height: 40px;
+        border: none;
+        outline: none;
+
+        &::placeholder {
+          opacity: 0.4;
+        }
+      }
+    }
+
+    &-select {
+      float: left;
+      padding: 10px 8px;
+      height: 38px;
+      border-right: 1px solid $borderColor;
+
+      select {
+        width: 100%;
+        line-height: 24px;
+        font-size: 14px;
+        color: $blue;
+        background: none;
+        border: none;
+        outline: none;
+        cursor: pointer;
+      }
+    }
+
+    &-button {
+      float: left;
+      border-radius: 0 4px 4px 0;
+      background: rgba(0, 0, 0, 0.05);
+
+      &:hover {
+        background: rgba(0, 50, 100, 0.1);
+      }
+
+      button {
+        width: 40px;
+        line-height: 38px;
+        color: #aaa;
+        background: none;
+        border: none;
+        outline: none;
+
+        &:hover {
+          color: $blue;
+        }
+      }
+    }
+
+    @media (max-width: 900px) {
+      width: 100%;
+      max-width: 320px;
+      height: 30px;
+
+      &-input {
+        width: calc(100% - 130px);
+        height: 28px;
+
+        input {
+          padding: 0 0 0 8px;
+          font-size: 12px;
+          line-height: 28px;
+        }
+      }
+
+      &-select {
+        padding: 5px 3px;
+        width: 100px;
+        height: 28px;
+
+        select {
+          font-size: 12px;
+        }
+      }
+
+      &-button {
+        max-width: 30px;
+
+        button {
+          width: 30px;
+          height: 28px;
+          line-height: 28px;
+        }
+      }
+    }
+
+    @media (max-width: 530px) {
+      display: inline-block;
+      float: none;
+    }
+  }
+}

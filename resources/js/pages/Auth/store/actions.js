@@ -10,6 +10,8 @@ const login = async ({ commit }, form) => {
     commit('SET_USER', user);
     localStorage.setItem('user-token', user.token);
 
+    commit('RESET_FORM');
+
     router.push({ name: 'panel' });
   } catch (err) {
     if (err.response.data && err.response.data.message) {
@@ -20,7 +22,7 @@ const login = async ({ commit }, form) => {
   }
 };
 
-const autoLogin = async ({ commit }) => {
+const autoLogin = async ({ commit }, { next, url }) => {
   try {
     const token = localStorage.getItem('user-token');
     const user = (
@@ -31,7 +33,10 @@ const autoLogin = async ({ commit }) => {
       })
     ).data;
     commit('SET_USER', user);
-    router.push({ name: 'panel' });
+    if (url) {
+      return next(url);
+    }
+    next();
   } catch (err) {
     localStorage.removeItem('user-token');
     if (err.response.status === 401) {

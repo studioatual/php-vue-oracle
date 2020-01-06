@@ -1,0 +1,90 @@
+$topbarHeight: 50px;
+$pagesPadding: 25px;
+$pagesPaddingSmall: 10px;
+$sidebarWidthOpened: 260px;
+$sidebarWidthClosed: 50px;
+
+#panel {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  padding-top: $topbarHeight;
+  overflow: hidden;
+
+  @media (max-width: 900px) {
+    display: block;
+  }
+
+  @import './topbar';
+  @import './sidebar';
+
+  .pages {
+    position: absolute;
+    top: $topbarHeight;
+    bottom: 0;
+    left: $sidebarWidthOpened;
+    right: 0;
+    padding: $pagesPadding;
+    transition: left 0.3s ease-in-out;
+    overflow: auto;
+
+    &.opened {
+      left: $sidebarWidthClosed;
+      transition: left 0.3s ease-in-out;
+    }
+
+    @media (max-width: 900px) {
+      left: 0;
+      padding: $pagesPaddingSmall;
+      height: auto;
+
+      &.opened {
+        left: 0;
+      }
+    }
+
+    .page {
+      padding: 0 15px;
+      min-height: 100%;
+      background: #fff;
+      border-radius: 5px;
+      box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+
+      &-title {
+        padding: 15px 0;
+        border-bottom: 2px solid $bgColor;
+
+        h1 {
+          font-size: 24px;
+        }
+      }
+
+      &-options {
+        padding: 15px 0;
+        border-bottom: 2px solid $bgColor;
+      }
+
+      &-body {
+        padding: 8px 0 15px 0;
+      }
+
+      @media (max-width: 900px) {
+        padding: 5px;
+
+        &-title {
+          padding: 5px;
+
+          h1 {
+            font-size: 16px;
+          }
+        }
+
+        &-options {
+          padding: 8px 5px;
+        }
+      }
+    }
+  }
+}
+
+@import './dashboard';

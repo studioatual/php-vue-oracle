@@ -4,6 +4,11 @@
 @import 'base/animate';
 @import 'base/variables';
 @import 'base/global';
+@import 'base/colors';
 
 @import 'modules/loader/main';
 @import 'modules/auth/main';
+@import 'modules/panel/main';
+@import 'modules/pagination/main';
+@import 'modules/table/main';
+@import 'modules/search/main';

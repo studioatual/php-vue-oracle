@@ -1,27 +1,30 @@
 import store from '~/store';
 
 export const ifNotAuthenticated = (to, from, next) => {
-  if (!store.getters['Auth/isAuthenticated']) {
-    next();
+  if (store.getters['Auth/isAuthenticated']) {
+    next('/panel');
     return;
   }
-  next('/panel');
+
+  if (localStorage.getItem('user-token')) {
+    store.dispatch('Auth/autoLogin', { next, url: '/panel' });
+    return;
+  }
+
+  next();
 };
 
 export const ifAuthenticated = (to, from, next) => {
   if (store.getters['Auth/isAuthenticated']) {
     next();
-    return;
   }
-  next('/auth');
-};
 
-export const checkToken = (to, from, next) => {
   if (localStorage.getItem('user-token')) {
-    store.dispatch('Auth/autoLogin');
+    store.dispatch('Auth/autoLogin', { next, url: null });
     return;
   }
-  next();
+
+  next('/auth');
 };
 
 export const logout = (to, from, next) => {
@@ -31,5 +34,6 @@ export const logout = (to, from, next) => {
     next('/auth');
     return;
   }
+
   next();
 };

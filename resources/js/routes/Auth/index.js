@@ -1,8 +1,8 @@
 import Auth from '~/pages/Auth';
-import Login from '~/pages/Auth/Sections/Login';
-import ForgotPassword from '~/pages/Auth/Sections/ForgotPassword';
+import Login from '~/pages/Auth/Pages/Login';
+import ForgotPassword from '~/pages/Auth/Pages/ForgotPassword';
 
-import { ifNotAuthenticated, checkToken } from '~/services/middleware';
+import { ifNotAuthenticated } from '~/services/middleware';
 
 export default {
   path: '/auth',
@@ -20,7 +20,6 @@ export default {
       meta: {
         name: 'Login',
       },
-      beforeEnter: checkToken,
       component: Login,
     },
     {
@@ -29,7 +28,6 @@ export default {
       meta: {
         name: 'Forgot Password',
       },
-      beforeEnter: checkToken,
       component: ForgotPassword,
     },
   ],

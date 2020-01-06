@@ -15,13 +15,19 @@ class StockController extends Controller
         $current_page = isset($args['page']) ? intval($args['page']) : 1;
         $per_page = isset($args['per_page']) ? intval($args['per_page']) : 15;
         $order = isset($args['order']) ? $args['order'] : 'tag';
-        $sort  = isset($args['sort']) ? $args['sort'] : 'asc';
+        $sort = isset($args['sort']) ? $args['sort'] : 'asc';
+        $search = isset($args['search']) ? $args['search'] : null;
+        $type = isset($args['type']) ? $args['type'] : null;
 
-        $total = $this->getTotal();
+        $where = '';
+        if ($search && $type) {
+            $where = " WHERE STK." . strtoupper($type) . " LIKE '%" . strtoupper($search) . "%' ";
+        }
+
+        $total = $this->getTotal($where);
         $last_page = (($total%$per_page)==0) ? $total/$per_page : floor($total/$per_page) + 1;
         $next_page = ($current_page + 1) > $last_page ? null : $current_page + 1;
         $prev_page = ($current_page - 1 > 0) ? $current_page - 1 : null;
-
 
         $from = ($current_page - 1) * $per_page + 1;
         $to = $from + $per_page - 1;
@@ -47,16 +53,16 @@ class StockController extends Controller
         }
 
         try {
-            $query = $this->db->query("SELECT TAG
+            $result = $this->db->query("SELECT TAG
                         , DESCRICAO
                         , CUSTO_MEDIO
                         , QUANTIDADE_KG
                         FROM (SELECT row_number()
                                     OVER(ORDER BY STK.".strtoupper($order)." ".strtoupper($sort).") line,
-                                    STK.* FROM STOCK STK)
+                                    STK.* FROM STOCK STK $where)
                         WHERE line BETWEEN ".$from." AND ".$to);
 
-            $data = $query->fetchAll(PDO::FETCH_OBJ);
+            $data = $result->fetchAll(PDO::FETCH_OBJ);
 
             $response->getBody()
                 ->write(json_encode([
@@ -86,13 +92,40 @@ class StockController extends Controller
         }
     }
 
-    private function getTotal()
+    private function getTotal($where)
     {
         try {
-            $query = $this->db->query("SELECT COUNT(*) AS TOTAL FROM STOCK");
-            return intval($query->fetchColumn(0));
+            $result = $this->db->query("SELECT COUNT(*) AS TOTAL FROM STOCK STK $where");
+            return intval($result->fetchColumn(0));
         } catch (PDOException $e) {
             return $e;
+        }
+    }
+
+    public function getAllProducts(Request $request, Response $response)
+    {
+        try {
+
+            $result = $this->db->query("SELECT
+                descricao
+                , custo_medio
+                FROM STOCK
+                ORDER BY DESCRICAO");
+
+            $data = $result->fetchAll(PDO::FETCH_OBJ);
+
+            $response->getBody()->write(json_encode($data));
+
+            return $response->withStatus(200)
+                ->withHeader('Content-Type', 'application/json');
+
+        } catch (PDOException $e) {
+
+            $response->getBody()
+                ->write(json_encode(['error' => $e->getMessage()]));
+
+            return $response->withStatus(400)
+                ->withHeader('Content-Type', 'application/json');
         }
     }
 }

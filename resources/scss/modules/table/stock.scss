@@ -1,0 +1,36 @@
+.tag {
+  width: 120px;
+  min-width: 120px;
+  max-width: 150px;
+
+  @media (max-width: 700px) {
+    display: none;
+  }
+}
+
+.descricao {
+}
+
+.custo_medio {
+  width: 150px;
+  min-width: 150px;
+  max-width: 150px;
+
+  @media (max-width: 700px) {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+  }
+}
+
+.quantidade_kg {
+  width: 150px;
+  min-width: 150px;
+  max-width: 150px;
+
+  @media (max-width: 700px) {
+    width: 90px;
+    min-width: 90px;
+    max-width: 90px;
+  }
+}
